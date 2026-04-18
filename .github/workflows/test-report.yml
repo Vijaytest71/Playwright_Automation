@@ -1,0 +1,34 @@
+name: Test Results Report
+
+on:
+  workflow_run:
+    workflows: ["Playwright CI"]
+    types: [completed]
+
+jobs:
+  test-report:
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: all-reports
+
+      - name: Publish test report
+        uses: dorny/test-reporter@v1
+        with:
+          name: All Test Results
+          path: 'all-reports/**/test-results.json'
+          reporter: 'java-junit'
+          fail-on-error: false
+          
+      - name: Comment on PR with summary
+        if: github.event.workflow_run.event == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            console.log('Test run completed');
+            console.log('Status: ${{ github.event.workflow_run.conclusion }}');

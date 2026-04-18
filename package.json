@@ -1,0 +1,33 @@
+{
+  "name": "playwright_automation",
+  "version": "1.0.0",
+  "description": "Playwright automation test suite with CI/CD pipeline",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:debug": "playwright test --debug",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "test:chrome": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:webkit": "playwright test --project=webkit",
+    "test:all-browsers": "playwright test",
+    "test:single": "playwright test tests/",
+    "report": "playwright show-report",
+    "lint": "eslint tests/ --fix || true",
+    "trace": "playwright show-trace"
+  },
+  "keywords": [
+    "playwright",
+    "automation",
+    "testing",
+    "e2e"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^25.0.7",
+    "eslint": "^8.0.0"
+  }
+}
